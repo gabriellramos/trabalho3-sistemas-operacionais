@@ -1,0 +1,68 @@
+
+
+1) Considerando as estratégias para escolha da partição dinamicamente, conceitue as estratégias best-fit e
+ worst-fit especificando prós e contras de cada uma.
+
+R: Na estratégia best-fit, a melhor partição é escolhida, ou seja, aquela em que o programa deixa o menor espaço sem utilização. 
+Nesse algoritmo, a lista de áreas livres está ordenada por tamanho, diminuindo o tempo de busca por uma área desocupada.
+Uma grande desvantagem desse método é consequência do próprio algoritmo. Como é alocada a partição que deixa a menor área livre, a tendência é que cada vez mais a
+memória fique com pequenas áreas não contíguas, aumentando o problema da fragmentação.
+Na estratégia worst-fit, a pior partição é escolhida, ou seja, aquela em que o programa
+deixa o maior espaço sem utilização. Apesar de utilizar as maiores partições, a técnica de worst-fit deixa espaços livres 
+maiores que permitem a um maior número de programas utilizar a memória, diminuindo o problema da fragmentação. 
+Mas como desvantagem podemos destacar a grande quantidade processos pequenos sendo alocados em espaços livres maiores que poderiam ser utilizados por processos que realmente necessitem de espaço.
+
+
+3) Explique o que é a atividade de swapping e diga como ela pode prejudicar o desempenho do sistema computacional.
+R: Faz uma transferência temporária entre a memória principal e a 
+secundaria só que pode demorar muito e consome muito a CPU.
+
+4) Quando é mais interessante utilizarmos o algoritmo best-fit? E oworst-fit?
+
+Best-fit - quando se deseja um processo mais rápido.
+Worst-fit - quando deseja criar o maior espaço possível.
+
+5) Considerando partições fixas de memória de 100K, 500K, 200K, 300K e 600K (nessa ordem), 
+como cada um dos algoritmos first-fit,best-fit e worst-fit colocaria processos de 212K, 417K, 112K e 426K 
+(nessa ordem)? Calcule a quantidade de espaço desperdiçado em cada algoritmo.
+
+First Fit - inicia a procura a partir da primeira página dememória (parte baixa)
+ e vai varrendo a memória até encontrar a primeira lacuna suficientemente grande para armazenar, 
+se não encontrar exibe uma mensagem de erro o processo. 212KB é colocado napartição de 500KB - 288
+417KB é colocado na partição de 600KB - 183
+112KB é colocado na partição de 288KB (nova partição de 288KB = 500KB – 212KB) - 176
+426KB precisa esperar
+
+Best Fit tentadeterminar o melhor lugar para alocar os dados. 
+A definição de melhor varia nas implementações,
+mas por exemplo pode ser escolhido o espaço que deixaria menor resíduo no final do bloco.
+212 KB é colocado napartição de 300KB - 88
+417 KB é colocado na partição de 500KB - 83
+112 KB é colocado na partição de 200KB - 88
+426 KB é colocado na partição de 600KB - 174
+
+Worst Fit O algoritmo seleciona o maiorespaço possível
+ que a informação pode ser armazenada (maior que a informação). 
+É o completamente oposto do best-fit que procura o menor espaço possível
+212KB é colocado na partição de 600KB - 388417KB é colocado na partição de 500KB - 83
+112KB é colocado na partição de 388KB - 276
+426KB precisa esperar.
+
+
+7) O que é DMA e qual a vantagem desta técnica?
+
+R: DMA é uma sigla relacionada com o mundo da tecnologia que significa Direct Memory Access,
+ ou em português Acesso Direto à Memória. O DMA é uma característica dos computadores mais
+ modernos que possibilita que determinados subsistemas de hardware dentro do computador 
+acessem a memória do sistema, sem depender da unidade de processamento central (CPU).
+
+O DMA é um recurso da placa mãe que capacita os periféricos a terem acesso direto à memória RAM, 
+sem sobrecarregarem o processador. Com o DMA, as transferências de dados ocorrem sem a 
+intervenção da CPU por cada byte que é transferido. Desta forma, a transferência de dados ocorre de
+ forma muito mais rápida. Muitos sistemas de hardware usam o processo DMA, incluindo controladores 
+de disco, placas de vídeo, placas de rede e placas de som.
+
+Este método de transferência de dados ocorre em canais específicos de DMA. Existem 8 canais de DMA,
+ que estão numerados de 0 a 7. Nos canais de 0 a 3 as transferências ocorrem a 8 bits, e estes canais
+ pretendem garantir a compatibilidade com periféricos mais antigos. Nos restantes canais, 
+as transferências são feitas a 16 bits.
