@@ -26,25 +26,25 @@ void iniciaAlocacao(int *array){
 		array[i] = -1;
 }
 
-void inicializaDisperdicado(int *particoes, int *disperdicado){
+void inicializadesperdicado(int *particoes, int *desperdicado){
 	int i;
 	for (i=0;i<N;i++)
-		disperdicado[i] = particoes[i];
+		desperdicado[i] = particoes[i];
 }
 
-void imprimeMemoria(int *particoes, int *alocacao, int *disperdicado){
+void imprimeMemoria(int *particoes, int *alocacao, int *desperdicado){
 	int i;
 	printf ("-----------------------------------------------------\n");
-	printf ("%15s", "PARTICAO");
+	printf ("%15s", "TAM. PARTICAO");
 	for (i=0;i<N;i++){
 		printf ("%6d", particoes[i]);
 	}
 	printf ("\n%15s", "ALOCACADO");
 	for (i=0;i<N;i++)
 		printf ("%6d", alocacao[i]);
-	printf ("\n%15s", "DISPERDICADO");
+	printf ("\n%15s", "DESPERDICADO");
 	for (i=0;i<N;i++)
-		printf ("%6d", disperdicado[i]);
+		printf ("%6d", desperdicado[i]);
 		
 	printf ("\n%15s","");
 	for (i=0;i<N;i++)
@@ -59,17 +59,17 @@ void imprimeMemoria(int *particoes, int *alocacao, int *disperdicado){
 	printf ("\n-----------------------------------------------------\n");
 }
 
-void firstFit(int *particoes, int *alocacao, int *disperdicado, int *casos, int tamCasos){
+void firstFit(int *particoes, int *alocacao, int *desperdicado, int *casos, int tamCasos){
 	int i, j, k=0, aloca;
 	
 	for (j=0;j<tamCasos; j++){
 		aloca=0;
 		for (i=0;i<N;i++){
-			if (casos[j] <= disperdicado[i]){
+			if (casos[j] <= desperdicado[i]){
 				printf ("Aloca %d na particao %d\n", casos[j], i);
 				aloca=1;
 				alocacao[i] = alocacao[i] == -1 ? casos[j] : (alocacao[i] + casos[j]);
-				disperdicado[i] = disperdicado[i] - casos[j];
+				desperdicado[i] = desperdicado[i] - casos[j];
 				break;	
 			}
 		}
@@ -80,21 +80,21 @@ void firstFit(int *particoes, int *alocacao, int *disperdicado, int *casos, int 
 	}
 }
 
-void bestFit(int *particoes, int *alocacao, int *disperdicado, int *casos, int tamCasos){
+void bestFit(int *particoes, int *alocacao, int *desperdicado, int *casos, int tamCasos){
 	int i, j, menor=-1, aux, pos, aloca;
 	
 	for (j=0;j<tamCasos;j++){
 		aloca = 0;
 		for (i=0;i<N;i++)
-			if (casos[j] <= disperdicado[i]){
-				menor = disperdicado[i] - casos[j];
+			if (casos[j] <= desperdicado[i]){
+				menor = desperdicado[i] - casos[j];
 				pos = i;
 				break;
 			}
 		
 		for (i=pos+1;i<N;i++)
-			if (casos[j] <= disperdicado[i]){
-				aux = disperdicado[i] - casos[j];
+			if (casos[j] <= desperdicado[i]){
+				aux = desperdicado[i] - casos[j];
 				if (aux < menor){
 					menor = aux;
 					pos = i;
@@ -102,7 +102,7 @@ void bestFit(int *particoes, int *alocacao, int *disperdicado, int *casos, int t
 			}
 		if (menor!=-1){
 			alocacao[pos] = alocacao[pos] == -1 ? casos[j] : (alocacao[pos] + casos[j]);
-			disperdicado[pos] = disperdicado[pos] - casos[j];
+			desperdicado[pos] = desperdicado[pos] - casos[j];
 			printf ("Aloca %d na particao %d\n", casos[j], pos);
 		}else
 			printf ("Nao foi possivel alocar o processo %d\n", casos[j]);
@@ -110,21 +110,21 @@ void bestFit(int *particoes, int *alocacao, int *disperdicado, int *casos, int t
 	}
 }
 
-void worstFit(int *particoes, int *alocacao, int *disperdicado, int *casos, int tamCasos){
+void worstFit(int *particoes, int *alocacao, int *desperdicado, int *casos, int tamCasos){
 	int i, j, maior=-1, aux, pos;
 	
 	for (j=0;j<tamCasos;j++){
 		
 		for (i=0;i<N;i++)
-			if (casos[j] <= disperdicado[i]){
-				maior = disperdicado[i] - casos[j];
+			if (casos[j] <= desperdicado[i]){
+				maior = desperdicado[i] - casos[j];
 				pos = i;
 				break;
 			}
 		
 		for (i=pos+1;i<N;i++)
-			if (casos[j] <= disperdicado[i]){
-				aux = disperdicado[i] - casos[j];
+			if (casos[j] <= desperdicado[i]){
+				aux = desperdicado[i] - casos[j];
 				if (aux >= maior){
 					maior = aux;
 					pos = i;
@@ -133,7 +133,7 @@ void worstFit(int *particoes, int *alocacao, int *disperdicado, int *casos, int 
 			
 		if (maior!=-1){
 			alocacao[pos] = alocacao[pos] == -1 ? casos[j] : (alocacao[pos] + casos[j]);
-			disperdicado[pos] = disperdicado[pos] - casos[j];
+			desperdicado[pos] = desperdicado[pos] - casos[j];
 			printf ("Aloca %d na particao %d\n", casos[j], pos);
 		}else
 			printf ("Nao foi possivel alocar o processo %d\n", casos[j]);
@@ -143,19 +143,19 @@ void worstFit(int *particoes, int *alocacao, int *disperdicado, int *casos, int 
 	}
 }
 
-void nextFit(int *particoes, int *alocacao, int *disperdicado, int *casos, int tamCasos){
+void nextFit(int *particoes, int *alocacao, int *desperdicado, int *casos, int tamCasos){
 	int i=0, j, pos, alocou=0;
 	pos = 0;
 	
 	for (j=0;j<tamCasos; j++){
 		alocou = 0;
 		for (i=pos;i<N;i++){
-			if (casos[j] <= disperdicado[i]){
+			if (casos[j] <= desperdicado[i]){
 				printf ("Aloca %d na particao %d\n", casos[j], i);
 				alocou=1;
 				pos = i;
 				alocacao[i] = alocacao[i] == -1 ? casos[j] : (alocacao[i] + casos[j]);
-				disperdicado[i] = disperdicado[i] - casos[j];
+				desperdicado[i] = desperdicado[i] - casos[j];
 				break;	
 			}
 		}
@@ -173,29 +173,29 @@ void nextFit(int *particoes, int *alocacao, int *disperdicado, int *casos, int t
 int main(){
 	int particoes[] = {100,500,200,300,600};
 	int alocacao[N];
-	int disperdicado[N];
+	int desperdicado[N];
 	int casos[4] = {212,417,112,426};
 	iniciaAlocacao(alocacao);
-	inicializaDisperdicado(particoes,disperdicado);
+	inicializadesperdicado(particoes,desperdicado);
 	
 	
 	printf ("ALOCACAO DE MEMORIA USANDO ESTRATEGIA FIRST-FIT\n");
-	firstFit(particoes,alocacao,disperdicado,casos,4);
-	imprimeMemoria(particoes,alocacao,disperdicado);
+	firstFit(particoes,alocacao,desperdicado,casos,4);
+	imprimeMemoria(particoes,alocacao,desperdicado);
 	iniciaAlocacao(alocacao);
-	inicializaDisperdicado(particoes,disperdicado);
+	inicializadesperdicado(particoes,desperdicado);
 	
 	printf ("\n\nALOCACAO DE MEMORIA USANDO ESTRATEGIA BEST-FIT\n");
-	bestFit(particoes,alocacao,disperdicado,casos,4);
-	imprimeMemoria(particoes,alocacao,disperdicado);
+	bestFit(particoes,alocacao,desperdicado,casos,4);
+	imprimeMemoria(particoes,alocacao,desperdicado);
 	iniciaAlocacao(alocacao);
-	inicializaDisperdicado(particoes,disperdicado);
+	inicializadesperdicado(particoes,desperdicado);
 	
 	printf ("\n\nALOCACAO DE MEMORIA USANDO ESTRATEGIA WORST-FIT\n");
-	worstFit(particoes,alocacao,disperdicado,casos,4);
-	imprimeMemoria(particoes,alocacao,disperdicado);
+	worstFit(particoes,alocacao,desperdicado,casos,4);
+	imprimeMemoria(particoes,alocacao,desperdicado);
 	iniciaAlocacao(alocacao);
-	inicializaDisperdicado(particoes,disperdicado);
+	inicializadesperdicado(particoes,desperdicado);
 
 	return 0;
 }
